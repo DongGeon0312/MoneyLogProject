@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: moneylog
+  profiles:
+    active: local
+
+# TODO(1-6): 공통 설정 (JPA 옵션 등)
+# 프로필별 상세 설정은 application-local.yml / application-prod.yml 참고
