@@ -57,7 +57,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/moneylog
+            cd ~/MoneyLogProject
             export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET=${{ secrets.JWT_SECRET }}
