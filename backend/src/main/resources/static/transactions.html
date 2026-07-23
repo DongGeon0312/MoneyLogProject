@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>MoneyLog - 거래내역</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav>
+        <h1>MoneyLog</h1>
+        <div class="nav-links">
+            <a href="statistics.html">통계</a>
+            <button id="logout-btn" class="secondary">로그아웃</button>
+        </div>
+    </nav>
+
+    <h2 id="month-label"></h2>
+
+    <section class="card-section">
+        <h3>거래 등록</h3>
+        <form id="transaction-form" class="inline-form">
+            <select id="tx-type">
+                <option value="EXPENSE">지출</option>
+                <option value="INCOME">수입</option>
+            </select>
+            <select id="tx-category"></select>
+            <input type="number" id="tx-amount" placeholder="금액" required min="1">
+            <input type="text" id="tx-description" placeholder="설명(선택)">
+            <input type="date" id="tx-date" required>
+            <button type="submit">등록</button>
+        </form>
+    </section>
+
+    <section class="card-section">
+        <h3>거래 목록</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>날짜</th>
+                <th>타입</th>
+                <th>카테고리</th>
+                <th>금액</th>
+                <th>설명</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="transaction-list"></tbody>
+        </table>
+    </section>
+
+    <p id="error-message" class="error" style="display:none;"></p>
+</div>
+<script src="js/api.js"></script>
+<script src="js/transactions.js"></script>
+</body>
+</html>

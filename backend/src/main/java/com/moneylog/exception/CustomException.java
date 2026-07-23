@@ -1,5 +1,19 @@
 package com.moneylog.exception;
 
-// TODO(1-7): ErrorCode를 담는 공통 커스텀 예외
+import lombok.Getter;
+
+@Getter
 public class CustomException extends RuntimeException {
+
+    private final ErrorCode errorCode;
+
+    public CustomException(ErrorCode errorCode) {
+        super(errorCode.getDefaultMessage());
+        this.errorCode = errorCode;
+    }
+
+    public CustomException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+    }
 }

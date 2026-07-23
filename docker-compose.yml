@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: moneylog-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: moneylog
+      MYSQL_USER: moneylog
+      MYSQL_PASSWORD: ${DB_PASSWORD:-moneylog1234}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass1234}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: ./backend
+    image: ${DOCKERHUB_USERNAME:-moneylog}/moneylog:latest
+    container_name: moneylog-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: moneylog
+      DB_USERNAME: moneylog
+      DB_PASSWORD: ${DB_PASSWORD:-moneylog1234}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql-data:

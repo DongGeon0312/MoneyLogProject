@@ -2,7 +2,31 @@ spring:
   application:
     name: moneylog
   profiles:
-    active: local
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  jpa:
+    open-in-view: false
 
-# TODO(1-6): 공통 설정 (JPA 옵션 등)
-# 프로필별 상세 설정은 application-local.yml / application-prod.yml 참고
+# JWT 설정 (1-8). 운영에서는 반드시 JWT_SECRET 환경변수로 덮어쓴다 (docs/deployment-guide.md 참고).
+moneylog:
+  jwt:
+    secret: ${JWT_SECRET:moneylog-local-dev-secret-key-please-change-in-production-0123456789}
+    access-token-expiration-ms: 3600000       # 1시간
+    refresh-token-expiration-ms: 1209600000   # 14일
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+# K8s readiness/liveness probe용 (도전 F-16)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+# 프로필별 상세 설정(DB 등)은 application-local.yml / application-prod.yml 참고

@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: #f4f5f7;
+    margin: 0;
+    color: #222;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.container.narrow {
+    max-width: 360px;
+    padding-top: 60px;
+}
+
+h1 {
+    font-size: 22px;
+    margin: 0;
+}
+
+.subtitle {
+    color: #888;
+    margin-top: 4px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #4e79a7;
+    text-decoration: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inline-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+input, select, button {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+button {
+    background: #4e79a7;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button.secondary {
+    background: #999;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.card-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.summary-cards {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.summary-cards .card {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.summary-cards .card span {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.summary-cards .card strong {
+    font-size: 20px;
+}
+
+.error {
+    color: #e15759;
+    margin-top: 12px;
+}
+
+.switch {
+    font-size: 13px;
+    color: #666;
+}

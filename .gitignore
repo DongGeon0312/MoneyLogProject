@@ -1,2 +1,5 @@
 .DS_Store
 *.log
+
+# 실제 값이 들어간 k8s Secret (secret-example.yaml만 커밋 대상)
+k8s/secret.yaml

@@ -1,0 +1,58 @@
+# <DOCKERHUB_USERNAME>을 실제 Docker Hub 계정으로 바꿔서 적용하세요.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moneylog-app
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0   # 무중단 배포: 기존 파드를 먼저 내리지 않는다
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: moneylog-app
+  template:
+    metadata:
+      labels:
+        app: moneylog-app
+    spec:
+      containers:
+        - name: moneylog-app
+          image: <DOCKERHUB_USERNAME>/moneylog:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: DB_HOST
+              value: mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: moneylog
+            - name: DB_USERNAME
+              value: moneylog
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: moneylog-secret
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: moneylog-secret
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
