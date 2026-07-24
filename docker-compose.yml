@@ -3,6 +3,8 @@ services:
     image: mysql:8.0
     container_name: moneylog-mysql
     restart: unless-stopped
+    mem_limit: 350m
+    command: --innodb-buffer-pool-size=64M --performance-schema=OFF
     environment:
       MYSQL_DATABASE: moneylog
       MYSQL_USER: moneylog
@@ -23,6 +25,7 @@ services:
     image: ${DOCKERHUB_USERNAME:-moneylog}/moneylog:latest
     container_name: moneylog-app
     restart: unless-stopped
+    mem_limit: 450m
     depends_on:
       mysql:
         condition: service_healthy
@@ -34,6 +37,7 @@ services:
       DB_USERNAME: moneylog
       DB_PASSWORD: ${DB_PASSWORD:-moneylog1234}
       JWT_SECRET: ${JWT_SECRET}
+      JAVA_TOOL_OPTIONS: "-Xmx256m -XX:MaxMetaspaceSize=128m"
     ports:
       - "8080:8080"
 
